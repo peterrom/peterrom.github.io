@@ -16,7 +16,7 @@
           box-sizing: border-box;
       }
 
-      body {
+      body, h1 {
           font-family: sans-serif;
           background: var(--color-background);
           color: var(--color-contrast);
@@ -89,16 +89,28 @@
 
       gen();
 
-      ec.addEventListener("change", () => {
-          if (elast.childNodes.length) {
-              elog.appendChild(elast.childNodes[0]);
+      let timeoutId = null
+
+      ec.addEventListener("input", () => {
+          if (timeoutId) {
+              clearTimeout(timeoutId);
           }
 
-          elast.appendChild(
-              document.createTextNode(choice(ec.value == c ? yay : nay)));
+          if (ec.value.length < c.length) {
+              return;
+          }
 
-          gen();
-      s});
+          timeoutId = setTimeout(() => {
+              if (elast.childNodes.length) {
+                  elog.appendChild(elast.childNodes[0]);
+              }
+
+              elast.appendChild(
+                  document.createTextNode(choice(ec.value == c ? yay : nay)));
+
+              gen();
+          }, 250);
+      });
 
       ec.focus();
     </script>
