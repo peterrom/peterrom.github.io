@@ -20,20 +20,18 @@
           font-family: sans-serif;
           background: var(--color-background);
           color: var(--color-contrast);
-      }
-
-      h1, div, input {
           font-size: 48px;
       }
 
       input {
-          width: 6ch;
+          font-size: unset;
+          width: 4ch;
           background: var(--color-contrast);
           color: var(--color-background);
           border-radius: 1em;
           border: 0;
           outline: 0;
-          padding: 4px 1em;
+          padding: 4px .2em;
           text-align: center;
       }
 
@@ -91,18 +89,16 @@
 
       gen();
 
-      ec.addEventListener("input", () => {
-          if (ec.value.length < c.length && c.startsWith(ec.value)) {
-              return;
-          }
-
+      ec.addEventListener("change", () => {
           if (elast.childNodes.length) {
               elog.appendChild(elast.childNodes[0]);
           }
 
-          elast.appendChild(document.createTextNode(choice(ec.value == c ? yay : nay)));
+          elast.appendChild(
+              document.createTextNode(choice(ec.value == c ? yay : nay)));
+
           gen();
-      });
+      s});
 
       ec.focus();
     </script>
